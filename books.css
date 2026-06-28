@@ -1,620 +1,516 @@
 /* =========================================
    Zoho Reseller Sign-Up — Custom Theme
-   Scope: body.mp0 + global fallback
-   Author: you :)
+   Scope: ALL body variants (mp0, mp1, mp2, no-class)
+   Beats Zoho's signup-new.min.css via specificity + !important
    ========================================= */
 
-/* ── CSS VARIABLES (shared) ── */
-:root,
-body,
-body.mp0 {
-  --primary: #04A140;
-  --primary-2: #026B2A;
-  --text: #ffffff;
-  --text-muted: #e2e8f0;
-  --muted: #a0aec0;
-  --field-border: #374151;
-  --field-border-hover: #4b5563;
-  --danger: #e53e3e;
+/* ── VARIABLES ── */
+html body {
+  --primary:          #04A140;
+  --primary-2:        #026B2A;
+  --text:             #ffffff;
+  --text-muted:       #e2e8f0;
+  --muted:            #a0aec0;
+  --field-border:     #374151;
+  --field-border-hover:#4b5563;
+  --danger:           #e53e3e;
 }
 
-/* ── BASE BODY ── */
-body,
-body.mp0 {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  min-height: 100vh;
-  background: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-/* ── TOP PILL — HIDE ── */
-body .mTop,
-body.mp0 .mTop,
-html body.mp0 .mTop {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  height: 0 !important;
+/* ── BASE PAGE ── */
+html body {
   margin: 0 !important;
-  padding: 0 !important;
-}
-
-/* ── HIDE DEFAULT SERVICE LOGO ── */
-body img.serviceLogo,
-body.mp0 img.serviceLogo,
-html body.mp0 img.serviceLogo {
-  display: none !important;
-  visibility: hidden !important;
-}
-
-/* ── HIDE ZOHO'S LOGO WRAPPER ── */
-body .login-box > form > div > div[align="center"],
-body.mp0 .login-box > form > div > div[align="center"],
-html body.mp0 .login-box > form > div > div[align="center"] {
-  display: none !important;
-}
-
-/* ── KILL ::before welcome prefix ── */
-body .welcomeMessage::before,
-body.mp0 .welcomeMessage::before,
-html body.mp0 .welcomeMessage::before {
-  content: none !important;
-}
-
-/* ── CARD CONTAINER ── */
-body .login-box,
-body.mp0 .login-box,
-html body.mp0 .login-box {
-  position: relative;
-  width: 100%;
-  max-width: 540px;
-  margin-top: 56px;
-  background: #000000;
-  border: 1px solid var(--primary);
-  border-radius: 20px;
-  padding: 42px;
-  padding-top: 68px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(10px);
-}
-
-/* ── INJECT D4A LOGO (left) + ZOHO PARTNER LOGO (right) via ::after ── */
-body .login-box::before,
-body.mp0 .login-box::before,
-html body.mp0 .login-box::before {
-  content: "";
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  width: 100%;
-  height: 60px;
-  margin: 0 auto 10px;
-  background: none;
-}
-
-body .login-box::after,
-body.mp0 .login-box::after,
-html body.mp0 .login-box::after {
-  content: "";
-  position: absolute;
-  top: 16px;
-  left: 20px;
-  right: 20px;
-  height: 40px;
-  background-image:
-    url("https://demo.stackiz.in/d4a/logo.svg"),
-    url("https://www.d4aonline.com/files/Logo/Zoho%20advanced_partner%20Logo.png");
-  background-repeat: no-repeat, no-repeat;
-  background-position: left top, right top;
-  background-size: auto 40px, auto 40px;
-  z-index: 1;
-  transition: background-image 0.3s ease;
-  pointer-events: none;
-}
-
-body .login-box:hover::after,
-body.mp0 .login-box:hover::after,
-html body.mp0 .login-box:hover::after {
-  background-image:
-    url("https://demo.stackiz.in/d4a/logo-colour.svg"),
-    url("https://www.d4aonline.com/files/Logo/Zoho%20advanced_partner%20Logo.png");
-  background-size: auto 40px, auto 40px;
-}
-
-/* ── SIGNUP TABLE ── */
-body .signupTable,
-body.mp0 .signupTable {
-  width: 100%;
-  border-collapse: collapse;
-}
-body .signupTable td,
-body.mp0 .signupTable td {
-  padding: 8px 0;
-}
-
-/* ── PAGE TITLE ── */
-body .welcomeMessage,
-body.mp0 .welcomeMessage {
-  font-size: 28px;
-  font-weight: 800;
-  text-align: center;
-  margin: 0 0 22px;
-  color: transparent;
-  background: linear-gradient(135deg, var(--primary), var(--primary-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-
-/* ── LAYOUT HELPERS ── */
-body .poRel, body .rel,
-body.mp0 .poRel, body.mp0 .rel { position: relative; }
-body .fr, body.mp0 .fr { float: right; }
-body .fl, body.mp0 .fl { float: left; }
-body .disBlock, body.mp0 .disBlock { display: block; }
-body .zs-ml34, body.mp0 .zs-ml34 { margin-left: 0; }
-
-/* ── FORM FIELDS ── */
-body .form-input,
-body input.sgnemail,
-body select.form-input,
-body.mp0 .form-input,
-body.mp0 input.sgnemail,
-body.mp0 select.form-input {
-  width: 100%;
-  padding: 14px 16px;
-  border: 2px solid var(--field-border);
-  border-radius: 12px;
-  font-size: 16px;
-  line-height: 1.2;
-  background: #1a1a1a;
-  color: var(--text);
-  transition: border-color .2s ease, box-shadow .2s ease, transform .15s ease, background .2s ease;
-  appearance: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+  min-height: 100vh !important;
+  background: #ffffff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 20px !important;
   box-sizing: border-box !important;
 }
 
-body .form-input::placeholder,
-body.mp0 .form-input::placeholder {
-  color: var(--muted);
-  font-weight: 400;
+/* ── KILL ZOHO'S TOP PILL ── */
+html body .mTop {
+  display:     none !important;
+  visibility:  hidden !important;
+  opacity:     0 !important;
+  height:      0 !important;
+  margin:      0 !important;
+  padding:     0 !important;
 }
 
-body .form-input:hover:not(:focus),
-body.mp0 .form-input:hover:not(:focus) {
-  border-color: var(--field-border-hover);
-  background: #2a2a2a;
+/* ── KILL DEFAULT SERVICE LOGO + WRAPPER ── */
+html body img.serviceLogo {
+  display: none !important;
+  visibility: hidden !important;
+}
+html body .login-box > form > div > div[align="center"] {
+  display: none !important;
+}
+html body .welcomeMessage::before {
+  content: none !important;
 }
 
-body .form-input:focus,
-body.mp0 .form-input:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(4, 161, 64, 0.15);
-  transform: translateY(-1px);
-  animation: mp0-focusGlow .25s ease-in-out;
+/* ── CARD ── */
+html body .login-box {
+  position:       relative !important;
+  width:          100% !important;
+  max-width:      540px !important;
+  margin-top:     56px !important;
+  background:     #000000 !important;
+  border:         1px solid var(--primary) !important;
+  border-radius:  20px !important;
+  padding:        42px !important;
+  padding-top:    68px !important;
+  box-shadow:     0 20px 40px rgba(0,0,0,0.15) !important;
+  backdrop-filter:blur(10px) !important;
 }
 
-@keyframes mp0-focusGlow {
-  from { box-shadow: 0 0 0 0 rgba(4, 161, 64, 0.35); }
-  to   { box-shadow: 0 0 0 3px rgba(4, 161, 64, 0.15); }
+/* ── INJECT LOGOS VIA PSEUDO-ELEMENT ── */
+html body .login-box::before {
+  content:    "" !important;
+  display:    block !important;
+  width:      100% !important;
+  height:     60px !important;
+  margin:     0 auto 10px !important;
 }
 
-body .companyNameDiv,
-body.mp0 .companyNameDiv { margin-bottom: 4px; }
+html body .login-box::after {
+  content:            "" !important;
+  position:           absolute !important;
+  top:                16px !important;
+  left:               20px !important;
+  right:              20px !important;
+  height:             40px !important;
+  background-image:
+    url("https://demo.stackiz.in/d4a/logo.svg"),
+    url("https://www.d4aonline.com/files/Logo/Zoho%20advanced_partner%20Logo.png") !important;
+  background-repeat:  no-repeat, no-repeat !important;
+  background-position:left top, right top !important;
+  background-size:    auto 40px, auto 40px !important;
+  z-index:            1 !important;
+  pointer-events:     none !important;
+  transition:         background-image 0.3s ease !important;
+}
 
-body .sgfrm,
-body.mp0 .sgfrm { margin: 0; }
+html body .login-box:hover::after {
+  background-image:
+    url("https://demo.stackiz.in/d4a/logo-colour.svg"),
+    url("https://www.d4aonline.com/files/Logo/Zoho%20advanced_partner%20Logo.png") !important;
+}
+
+/* ── PAGE TITLE ── */
+html body .welcomeMessage {
+  font-size:   28px !important;
+  font-weight: 800 !important;
+  text-align:  center !important;
+  margin:      0 0 22px !important;
+  color:       transparent !important;
+  background:  linear-gradient(135deg, var(--primary), var(--primary-2)) !important;
+  -webkit-background-clip: text !important;
+  background-clip:         text !important;
+}
+
+/* ── SIGNUP TABLE ── */
+html body .signupTable {
+  width:           100% !important;
+  border-collapse: collapse !important;
+}
+html body .signupTable td {
+  padding: 8px 0 !important;
+}
+
+/* ── LAYOUT HELPERS ── */
+html body .poRel,
+html body .rel  { position: relative !important; }
+html body .fr   { float: right !important; }
+html body .fl   { float: left !important; }
+html body .disBlock { display: block !important; }
+html body .zs-ml34  { margin-left: 0 !important; }
+
+/* ── ALL FORM INPUTS ── */
+html body .form-input,
+html body input.sgnemail,
+html body select.form-input,
+html body input[type="text"],
+html body input[type="email"],
+html body input[type="password"],
+html body input[type="tel"] {
+  width:        100% !important;
+  padding:      14px 16px !important;
+  border:       2px solid var(--field-border) !important;
+  border-radius:12px !important;
+  font-size:    16px !important;
+  line-height:  1.2 !important;
+  background:   #1a1a1a !important;
+  color:        var(--text) !important;
+  appearance:   none !important;
+  -webkit-appearance: none !important;
+  box-sizing:   border-box !important;
+  transition:   border-color .2s ease, box-shadow .2s ease, transform .15s ease, background .2s ease !important;
+}
+
+html body .form-input::placeholder,
+html body input[type="text"]::placeholder,
+html body input[type="email"]::placeholder,
+html body input[type="password"]::placeholder,
+html body input[type="tel"]::placeholder {
+  color:       var(--muted) !important;
+  font-weight: 400 !important;
+}
+
+html body .form-input:hover:not(:focus),
+html body input[type="text"]:hover:not(:focus),
+html body input[type="email"]:hover:not(:focus),
+html body input[type="password"]:hover:not(:focus),
+html body input[type="tel"]:hover:not(:focus) {
+  border-color: var(--field-border-hover) !important;
+  background:   #2a2a2a !important;
+}
+
+html body .form-input:focus,
+html body input[type="text"]:focus,
+html body input[type="email"]:focus,
+html body input[type="password"]:focus,
+html body input[type="tel"]:focus {
+  outline:      none !important;
+  border-color: var(--primary) !important;
+  box-shadow:   0 0 0 3px rgba(4,161,64,0.15) !important;
+  transform:    translateY(-1px) !important;
+}
 
 /* ── PASSWORD TOGGLE ── */
-body .za-password-container,
-body.mp0 .za-password-container { position: relative; }
+html body .za-password-container { position: relative !important; }
 
-body #show-password,
-body.mp0 #show-password {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  color: var(--primary);
-  font-size: 14px;
-  font-weight: 600;
-  user-select: none;
+html body #show-password {
+  position:    absolute !important;
+  right:       12px !important;
+  top:         50% !important;
+  transform:   translateY(-50%) !important;
+  display:     inline-flex !important;
+  align-items: center !important;
+  gap:         6px !important;
+  cursor:      pointer !important;
+  color:       var(--primary) !important;
+  font-size:   14px !important;
+  font-weight: 600 !important;
+  user-select: none !important;
 }
-body #show-password:hover,
-body.mp0 #show-password:hover { opacity: .85; }
+html body #show-password:hover { opacity: .85 !important; }
 
-/* ── COUNTRY / STATE SELECTS ── */
-body .za-country-container-arrow select.form-input,
-body .za-state-container-arrow select.form-input,
-body select.form-input.countryCnt.za-country-select,
-body.mp0 .za-country-container-arrow select.form-input,
-body.mp0 .za-state-container-arrow select.form-input,
-body.mp0 select.form-input.countryCnt.za-country-select {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.8' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  background-size: 18px;
-  padding-right: 50px !important;
-  padding-left: 16px !important;
-  cursor: pointer;
-  text-align: center !important;
-  text-align-last: center !important;
-  font-size: 15px !important;
-  font-weight: 500 !important;
-  overflow: visible !important;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  height: auto !important;
-  min-height: 54px !important;
-  line-height: 1.4 !important;
+/* ── COUNTRY / STATE DROPDOWNS ── */
+html body select.form-input,
+html body .za-country-container-arrow select,
+html body .za-state-container-arrow select {
+  background-image:    url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.8' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+  background-repeat:   no-repeat !important;
+  background-position: right 14px center !important;
+  background-size:     18px !important;
+  padding-right:       50px !important;
+  padding-left:        16px !important;
+  cursor:              pointer !important;
+  text-align:          center !important;
+  text-align-last:     center !important;
+  font-size:           15px !important;
+  font-weight:         500 !important;
+  min-height:          54px !important;
+  height:              auto !important;
+  line-height:         1.4 !important;
 }
 
-body select.form-input option,
-body.mp0 select.form-input option {
-  background: #1a1a1a !important;
-  color: var(--text) !important;
-  padding: 12px 16px !important;
-  text-align: center !important;
-  font-size: 14px !important;
+html body select.form-input option {
+  background:  #1a1a1a !important;
+  color:       var(--text) !important;
+  padding:     12px 16px !important;
+  text-align:  center !important;
+  font-size:   14px !important;
   font-weight: 400 !important;
 }
 
 /* ── HIDE NEWSLETTER ── */
-body .za-newsletter-container,
-body tr.za-newsletter-container,
-body.mp0 .za-newsletter-container,
-body.mp0 tr.za-newsletter-container {
-  display: none !important;
+html body .za-newsletter-container,
+html body tr.za-newsletter-container {
+  display:    none !important;
   visibility: hidden !important;
-  opacity: 0 !important;
-  height: 0 !important;
-  overflow: hidden !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  opacity:    0 !important;
+  height:     0 !important;
+  overflow:   hidden !important;
+  margin:     0 !important;
+  padding:    0 !important;
 }
 
 /* ── TOS CONTAINER ── */
-body .za-tos-container,
-body.mp0 .za-tos-container {
-  display: flex !important;
+html body .za-tos-container,
+html body .za-tos-container.fontR {
+  display:     flex !important;
   align-items: flex-start !important;
-  gap: 0 !important;
-  margin: 16px 0 8px !important;
-  width: 100% !important;
+  gap:         0 !important;
+  margin:      16px 0 8px !important;
+  width:       100% !important;
 }
 
-body .za-tos-container.fontR,
-body.mp0 .za-tos-container.fontR {
-  display: flex !important;
-  align-items: flex-start !important;
-  width: 100% !important;
-}
-
-/* ── CHECKBOX ── */
-body .za-tos-container input.za-tos[type="checkbox"],
-body.mp0 .za-tos-container input.za-tos[type="checkbox"] {
-  width: 20px !important;
-  height: 20px !important;
-  min-width: 20px !important;
-  min-height: 20px !important;
-  margin: 0 8px 0 0 !important;
-  padding: 0 !important;
-  cursor: pointer !important;
-  position: relative !important;
-  z-index: 10 !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  display: inline-block !important;
-  appearance: none !important;
+/* ── CUSTOM CHECKBOX ── */
+html body .za-tos-container input[type="checkbox"],
+html body .za-tos-container input.za-tos {
+  width:       20px !important;
+  height:      20px !important;
+  min-width:   20px !important;
+  min-height:  20px !important;
+  margin:      0 8px 0 0 !important;
+  padding:     0 !important;
+  cursor:      pointer !important;
+  position:    relative !important;
+  z-index:     10 !important;
+  opacity:     1 !important;
+  visibility:  visible !important;
+  display:     inline-block !important;
+  appearance:  none !important;
   -webkit-appearance: none !important;
-  background: #2a2a2a !important;
-  border: 2px solid var(--field-border) !important;
+  background:  #2a2a2a !important;
+  border:      2px solid var(--field-border) !important;
   border-radius: 4px !important;
   vertical-align: top !important;
   flex-shrink: 0 !important;
 }
 
-body .za-tos-container input.za-tos[type="checkbox"]::after,
-body.mp0 .za-tos-container input.za-tos[type="checkbox"]::after {
-  content: "✓" !important;
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  color: #ffffff !important;
-  font-size: 14px !important;
-  font-weight: bold !important;
-  opacity: 0 !important;
+html body .za-tos-container input[type="checkbox"]::after,
+html body .za-tos-container input.za-tos::after {
+  content:    "✓" !important;
+  position:   absolute !important;
+  top:        50% !important;
+  left:       50% !important;
+  transform:  translate(-50%,-50%) !important;
+  color:      #ffffff !important;
+  font-size:  14px !important;
+  font-weight:bold !important;
+  opacity:    0 !important;
   transition: opacity 0.2s ease !important;
 }
 
-body .za-tos-container input.za-tos[type="checkbox"]:checked::after,
-body.mp0 .za-tos-container input.za-tos[type="checkbox"]:checked::after {
+html body .za-tos-container input[type="checkbox"]:checked::after,
+html body .za-tos-container input.za-tos:checked::after {
   opacity: 1 !important;
 }
 
-body .za-tos-container span#signup-termservice,
-body.mp0 .za-tos-container span#signup-termservice {
-  display: none !important;
+html body .za-tos-container input[type="checkbox"]:checked,
+html body .za-tos-container input.za-tos:checked {
+  background:   var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+html body .za-tos-container input[type="checkbox"]:hover,
+html body .za-tos-container input.za-tos:hover {
+  border-color: var(--primary) !important;
+  background:   #3a3a3a !important;
+  transform:    scale(1.05) !important;
+}
+
+html body .za-tos-container input[type="checkbox"]:focus,
+html body .za-tos-container input.za-tos:focus {
+  outline:    none !important;
+  box-shadow: 0 0 0 3px rgba(4,161,64,0.3) !important;
+}
+
+/* Hide Zoho's custom span replacement */
+html body .za-tos-container span#signup-termservice {
+  display:    none !important;
   visibility: hidden !important;
 }
 
-body .za-tos-container input.za-tos[type="checkbox"]:hover,
-body.mp0 .za-tos-container input.za-tos[type="checkbox"]:hover {
-  border-color: var(--primary) !important;
-  background: #3a3a3a !important;
-  transform: scale(1.05) !important;
-}
-
-body .za-tos-container input.za-tos[type="checkbox"]:focus,
-body.mp0 .za-tos-container input.za-tos[type="checkbox"]:focus {
-  outline: none !important;
-  box-shadow: 0 0 0 3px rgba(4, 161, 64, 0.3) !important;
-}
-
-body .za-tos-container input.za-tos[type="checkbox"]:checked,
-body.mp0 .za-tos-container input.za-tos[type="checkbox"]:checked {
-  background: var(--primary) !important;
-  border-color: var(--primary) !important;
-}
-
 /* ── LABELS ── */
-body .za-tos-container label.sign_agree,
-body.mp0 .za-tos-container label.sign_agree {
-  display: flex !important;
+html body .za-tos-container label.sign_agree {
+  display:     flex !important;
   align-items: flex-start !important;
-  gap: 8px !important;
-  cursor: pointer !important;
-  font-size: 14px !important;
-  color: var(--text-muted) !important;
+  gap:         8px !important;
+  cursor:      pointer !important;
+  font-size:   14px !important;
+  color:       var(--text-muted) !important;
   line-height: 1.5 !important;
   user-select: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  margin:      0 !important;
+  padding:     0 !important;
 }
 
-body .sign_agree,
-body .news-signup,
-body.mp0 .sign_agree,
-body.mp0 .news-signup {
-  font-size: 14px !important;
-  color: var(--text-muted) !important;
+html body .sign_agree,
+html body .news-signup {
+  font-size:   14px !important;
+  color:       var(--text-muted) !important;
   line-height: 1.5 !important;
-  cursor: pointer !important;
+  cursor:      pointer !important;
   user-select: none !important;
-  flex: 1 !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  flex:        1 !important;
+  margin:      0 !important;
+  padding:     0 !important;
 }
 
-body .sign_agree a,
-body .news-signup a,
-body.mp0 .sign_agree a,
-body.mp0 .news-signup a {
-  color: var(--primary) !important;
+html body .sign_agree a,
+html body .news-signup a {
+  color:           var(--primary) !important;
   text-decoration: none !important;
-  font-weight: 600 !important;
+  font-weight:     600 !important;
 }
-
-body .sign_agree a:hover,
-body .news-signup a:hover,
-body.mp0 .sign_agree a:hover,
-body.mp0 .news-signup a:hover {
+html body .sign_agree a:hover,
+html body .news-signup a:hover {
   text-decoration: underline !important;
 }
 
 /* ── SUBMIT BUTTON ── */
-body .submit-btn.submitSignUp,
-body.mp0 .submit-btn.submitSignUp {
-  width: 100%;
-  border: 0;
-  border-radius: 12px;
-  padding: 16px 24px;
-  font-size: 16px;
-  font-weight: 700;
-  color: #fff;
-  cursor: pointer;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
-  transition: transform .15s ease, box-shadow .2s ease, opacity .2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
+html body .submit-btn.submitSignUp,
+html body button.submitSignUp,
+html body input[type="submit"].submitSignUp {
+  width:        100% !important;
+  border:       0 !important;
+  border-radius:12px !important;
+  padding:      16px 24px !important;
+  font-size:    16px !important;
+  font-weight:  700 !important;
+  color:        #fff !important;
+  cursor:       pointer !important;
+  background:   linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%) !important;
+  transition:   transform .15s ease, box-shadow .2s ease, opacity .2s ease !important;
+  display:      inline-flex !important;
+  align-items:  center !important;
+  justify-content: center !important;
+  position:     relative !important;
+  overflow:     hidden !important;
 }
 
-body .submit-btn.submitSignUp:hover,
-body.mp0 .submit-btn.submitSignUp:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(4, 161, 64, 0.30);
+html body .submit-btn.submitSignUp:hover {
+  transform:  translateY(-2px) !important;
+  box-shadow: 0 10px 24px rgba(4,161,64,0.30) !important;
 }
 
-body .submit-btn.submitSignUp:active,
-body.mp0 .submit-btn.submitSignUp:active {
-  transform: translateY(0);
+html body .submit-btn.submitSignUp:active {
+  transform: translateY(0) !important;
 }
 
-body .submitSignUp.diableBtnSignup,
-body.mp0 .submitSignUp.diableBtnSignup {
-  opacity: .7;
-  cursor: not-allowed;
-  box-shadow: none;
-  transform: none;
+html body .submitSignUp.diableBtnSignup {
+  opacity:    .7 !important;
+  cursor:     not-allowed !important;
+  box-shadow: none !important;
+  transform:  none !important;
 }
 
 /* ── LOADING SPINNER ── */
-body #LoadingImage.successLoading,
-body.mp0 #LoadingImage.successLoading {
-  width: 20px;
-  height: 20px;
-  border: 2px solid rgba(255,255,255,.35);
-  border-top-color: #fff;
-  border-radius: 50%;
-  margin-left: 10px;
-  display: none;
-  animation: mp0-spin 1s linear infinite;
+html body #LoadingImage.successLoading {
+  width:        20px !important;
+  height:       20px !important;
+  border:       2px solid rgba(255,255,255,.35) !important;
+  border-top-color: #fff !important;
+  border-radius:50% !important;
+  margin-left:  10px !important;
+  display:      none !important;
+  animation:    mp0-spin 1s linear infinite !important;
 }
-
 @keyframes mp0-spin { to { transform: rotate(360deg); } }
 
+/* ── SIGN UP AREA ── */
+html body .signupArea {
+  display:         inline-flex !important;
+  align-items:     center !important;
+  justify-content: center !important;
+  gap:             10px !important;
+}
+
 /* ── OTP SECTION ── */
-body .signupotpcontainer,
-body.mp0 .signupotpcontainer {
-  margin-top: 14px;
-  border-top: 1px dashed rgba(0,0,0,.08);
-  padding-top: 14px;
+html body .signupotpcontainer {
+  margin-top:  14px !important;
+  border-top:  1px dashed rgba(255,255,255,.1) !important;
+  padding-top: 14px !important;
+}
+html body .verifytitle {
+  font-weight: 800 !important;
+  color:       var(--text) !important;
+  margin-bottom: 6px !important;
+}
+html body .verifyheader {
+  color:     var(--text-muted) !important;
+  font-size: 14px !important;
+  margin-bottom: 10px !important;
+}
+html body .za-otp-container dd input.form-input {
+  letter-spacing: 2px !important;
+}
+html body .resendotp {
+  margin-left: 10px !important;
+  font-size:   13px !important;
+  font-weight: 700 !important;
+  color:       var(--primary) !important;
+  cursor:      pointer !important;
+}
+html body .za-submitbtn-otp .signupbtn {
+  border:        0 !important;
+  border-radius: 10px !important;
+  padding:       12px 18px !important;
+  font-weight:   700 !important;
+  color:         #fff !important;
+  background:    linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%) !important;
+  cursor:        pointer !important;
+}
+html body .za-submitbtn-otp .signupbtn:hover {
+  transform: translateY(-1px) !important;
 }
 
-body .verifytitle,
-body.mp0 .verifytitle {
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 6px;
+/* ── ERRORS ── */
+html body .jqval-error,
+html body .error {
+  color:      var(--danger) !important;
+  font-size:  12px !important;
+  margin-top: 6px !important;
+  display:    block !important;
 }
-
-body .verifyheader,
-body.mp0 .verifyheader {
-  color: var(--text-muted);
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-
-body .za-otp-container dd input.form-input,
-body.mp0 .za-otp-container dd input.form-input { letter-spacing: 2px; }
-
-body .resendotp,
-body.mp0 .resendotp {
-  margin-left: 10px;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--primary);
-  cursor: pointer;
-}
-
-body .za-submitbtn-otp .signupbtn,
-body.mp0 .za-submitbtn-otp .signupbtn {
-  border: 0;
-  border-radius: 10px;
-  padding: 12px 18px;
-  font-weight: 700;
-  letter-spacing: .2px;
-  color: #fff;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
-  cursor: pointer;
-  transition: transform .15s ease, box-shadow .2s ease;
-}
-
-body .za-submitbtn-otp .signupbtn:hover,
-body.mp0 .za-submitbtn-otp .signupbtn:hover { transform: translateY(-1px); }
-
-/* ── ERROR STATES ── */
-body .jqval-error,
-body .error,
-body.mp0 .jqval-error,
-body.mp0 .error {
-  color: var(--danger);
-  font-size: 12px;
-  margin-top: 6px;
-  display: block;
-}
-
-body input.error,
-body select.error,
-body textarea.error,
-body.mp0 input.error,
-body.mp0 select.error,
-body.mp0 textarea.error {
+html body input.error,
+html body select.error,
+html body textarea.error {
   border-color: var(--danger) !important;
-  box-shadow: 0 0 0 3px rgba(229,62,62,.12);
+  box-shadow:   0 0 0 3px rgba(229,62,62,.12) !important;
 }
 
-body .end_field_msg,
-body .end_field_msg_sameemail,
-body .end_field_msg_samedomain,
-body.mp0 .end_field_msg,
-body.mp0 .end_field_msg_sameemail,
-body.mp0 .end_field_msg_samedomain {
-  margin-top: 6px;
+html body .end_field_msg,
+html body .end_field_msg_sameemail,
+html body .end_field_msg_samedomain {
+  margin-top: 6px !important;
 }
 
-body .signUp-tdAlignLeft,
-body.mp0 .signUp-tdAlignLeft { text-align: left; }
+html body .signUp-tdAlignLeft { text-align: left !important; }
+html body .za-refresh-captcha { border: 0 !important; }
+html body .companyNameDiv     { margin-bottom: 4px !important; }
+html body .sgfrm              { margin: 0 !important; }
 
-/* ── CAPTCHA / MISC ── */
-body .za-refresh-captcha,
-body.mp0 .za-refresh-captcha { border: 0; }
-
-body .signupArea,
-body.mp0 .signupArea {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+/* ── FOCUS RINGS ── */
+html body .submit-btn:focus-visible,
+html body .signupbtn:focus-visible,
+html body .form-input:focus-visible {
+  outline:    none !important;
+  box-shadow: 0 0 0 3px rgba(4,161,64,0.25) !important;
 }
 
-/* ── FOCUS RING ── */
-body .submit-btn:focus-visible,
-body .signupbtn:focus-visible,
-body .form-input:focus-visible,
-body.mp0 .submit-btn:focus-visible,
-body.mp0 .signupbtn:focus-visible,
-body.mp0 .form-input:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(4, 161, 64, 0.25);
-}
-
-/* ── RESPONSIVENESS ── */
+/* ── RESPONSIVE ── */
 @media (max-width: 768px) {
-  body .login-box,
-  body.mp0 .login-box {
-    padding: 35px 22px;
-    margin: 20px 10px;
-    margin-top: 78px;
-    max-width: 100%;
+  html body .login-box {
+    padding:    35px 22px !important;
+    margin:     20px 10px !important;
+    margin-top: 78px !important;
+    max-width:  100% !important;
   }
-
-  body .welcomeMessage,
-  body.mp0 .welcomeMessage { font-size: 24px; }
+  html body .welcomeMessage { font-size: 24px !important; }
 }
 
 @media (max-width: 480px) {
-  body .login-box::before,
-  body.mp0 .login-box::before,
-  html body.mp0 .login-box::before {
-    height: 30px;
-    margin-bottom: 8px;
+  html body .login-box {
+    padding-top: 55px !important;
   }
-
-  body .login-box::after,
-  body.mp0 .login-box::after,
-  html body.mp0 .login-box::after {
-    top: 12px;
-    left: 15px;
-    right: 15px;
-    height: 35px;
-    background-size: auto 35px, auto 35px;
+  html body .login-box::after {
+    top:             12px !important;
+    left:            15px !important;
+    right:           15px !important;
+    height:          35px !important;
+    background-size: auto 35px, auto 35px !important;
   }
-
-  body .login-box,
-  body.mp0 .login-box,
-  html body.mp0 .login-box {
-    padding-top: 55px;
-  }
-
-  body .za-tos-container input[type="checkbox"],
-  body.mp0 .za-tos-container input[type="checkbox"] {
-    width: 24px !important;
-    height: 24px !important;
-    min-width: 24px !important;
+  html body .za-tos-container input[type="checkbox"] {
+    width:      24px !important;
+    height:     24px !important;
+    min-width:  24px !important;
     min-height: 24px !important;
   }
 }
